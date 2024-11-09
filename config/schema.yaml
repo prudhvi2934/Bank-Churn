@@ -1,0 +1,79 @@
+columns:
+ - CLIENTNUM: int
+ - Attrition_Flag: category
+ - Customer_Age: int
+ - Gender: category
+ - Dependent_count: int
+ - Education_Level: category
+ - Marital_Status: category
+ - Income_Category: category
+ - Card_Category: category
+ - Months_on_book: int
+ - Total_Relationship_Count: int
+ - Months_Inactive_12_mon: int
+ - Contacts_Count_12_mon: int
+ - Credit_Limit: int
+ - Total_Revolving_Bal: int
+ - Avg_Open_To_Buy: int
+ - Total_Amt_Chng_Q4_Q1: int
+ - Total_Trans_Amt: int
+ - Total_Trans_Ct: int
+ - Total_Ct_Chng_Q4_Q1: int
+ - Avg_Utilization_Ratio: int
+
+numerical_columns:
+  - Customer_Age
+  - Dependent_count
+  - Months_on_book
+  - Total_Relationship_Count
+  - Months_Inactive_12_mon
+  - Contacts_Count_12_mon
+  - Credit_Limit
+  - Total_Revolving_Bal
+  - Avg_Open_To_Buy
+  - Total_Amt_Chng_Q4_Q1
+  - Total_Trans_Amt
+  - Total_Trans_Ct
+  - Total_Ct_Chng_Q4_Q1
+  - Avg_Utilization_Ratio
+
+categorical_columns:
+  - Gender
+  - Education_Level
+  - Marital_Status
+  - Income_Category
+  - Card_Category
+
+
+drop_columns:
+  - CLIENTNUM
+
+
+# for data transformation
+num_features:
+  - Customer_Age
+  - Dependent_count
+  - Months_on_book
+  - Total_Relationship_Count
+  - Months_Inactive_12_mon
+  - Contacts_Count_12_mon
+  - Credit_Limit
+  - Total_Revolving_Bal
+  - Avg_Open_To_Buy
+  - Total_Amt_Chng_Q4_Q1
+  - Total_Trans_Amt
+  - Total_Trans_Ct
+  - Total_Ct_Chng_Q4_Q1
+  - Avg_Utilization_Ratio
+
+or_columns:
+  - Gender
+  - Marital_Status
+
+oh_columns:
+  - Education_Level
+  - Income_Category
+  - Card_Category
+
+transform_columns:
+  - 

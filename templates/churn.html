@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>US Visa Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container-fluid">
+           <!-- <a class="navbar-brand" href="https://ineuron.ai"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAAAlCAMAAABBJDpuAAAAVFBMVEX/fgD/iQA7NzIyMjMnNYInNYEnNYInNYEzMzInNYQnNYETJzsnNYIwN1wxMjNoTis4O1YrNm0xOF47PE9DP0dEQEVpTVkAJJ4nNYEOLJHJbiAzMzOmmmHRAAAAFnRSTlOh/vu+986oen9fP2UqEzQkFAIDAAEEILVBJQAAA3FJREFUWMPNmO2WoyAMQG0VBARtdVRs3/89NwkgaF1rd2aOm18tIrnkgwSz7n+R7LcV1ELkeS7E7VySRlyfQXJhTiO55c+liP4cEuH1X8E7gaV+S3Jv2zYZ/Vr+/Sdx2vP6doc/fSPcf/GOpLSFVXFUW8t+giRP47TOd60yk1hbxIhSP0ACKPWrvw7YBIT/lcQY84G3Wk17ugWQfg5UsQJpjflKSLQi7xTWyk0SXTJ4VnB5D1yccxmp4Z+mX5KGNS+SPXVNll0ulyxL0wYmloBB6zL/MpCoAgjAJiUM6w0SboMwPUdRogvNKcNM3smFdRvEcJJkKcflQa+X0pNIfBGW0zKqjyQtw4VLKQlI7ZLgdrRNSZDjMQx2GB4pCkxkCrfGWUTJ0Egan6muCHgJCUwtnCk0mrJ9Q8K5LUqtdSfynkAedhynaRqngVDaXLiJEAzkFkM71IuIlWRYtSQpbXSZDvQ7JPCei9brs+oaABkn74LRIkpFaVxGnzjvIxTYREOoEwn5r01JTDRTcO87Eu3zNUeTPKZpjrIRrNIDCjzALbPk7LJMIokOEQu2K7yKQAKvFDF9pVe0R+LGb7h1MMkw2ijjA/1zhSfSphvEAChXJEhAqwYStIJWXnTpvbdH4hTUwSQ2JRmQpILDLYbB7J41SYiLcNozu5Z3JMo7RxBJahI7WSRByCMkqJt9hySESbVJcvmARJGFExJmdBSl2oM2+T4JLWfgaGFptizlPUm1FydHSdyZ7UnS4ySph2kS0kJrkvr5NJg7dnrJnfxgxPozRPGtkyPNOxtaiDvbIAF9L+5B5zTI2BwlwXmM+U3zReav3o0F8oUEFFZ42McDZYomOUziFmezgWyo251Uc1nyKJol7URCEvIYUEbHYaEGQi9C9egwCdVfHwiaajfjKMUcHcRacCylhWJbJDfq47EEDhYqoIWjHnwDXZPpPiChPQelLU+Cbm4w50FmYgkvFwpiWwCC/Um/SLcNElOC9RVj6qWpCiEMvRUK4zLpdKmPw8rVldy/qxjn60wLrVLWJIPLiZJRr3fsvnOHPvare+lB93tb37T20D82jqOt+zNuXhuNvNhp7X+PpHb3rvV9R5xjE2SpyCN9ffQO+GtWIZr5Xnytz4gTMIRYfys47/uJEXny/aQ/95tSUwmU+uRvSp/IHzQqZYpYrQmxAAAAAElFTkSuQmCC" /></a> -->
+        </div>
+     </nav>
+    <section>
+        <div class="container-fluid">
+            <div class="container">
+                <form action="/" method="post">
+                    <legend>Churn Form</legend>
+                    <div class="mb-3">
+                        <label for="Customer_Age">Customer Age</label>
+                        <input type="number" class="form-control" id="Customer_Age" name="Customer_Age" placeholder="Enter Customer Age" required="required" min="0">
+                      </div>
+        
+                      <div class="mb-3">
+                        <label for="Gender">Gender</label>
+                        <select class="form-control" id="Gender" name="Gender" placeholder="Gender" required="required">
+                            <option value="" disabled selected>Select Gender</option>
+                            <option>M</option>
+                            <option>F</option>
+                        </select>
+                      </div>
+        
+                      <div class="mb-3">
+                        <label for="Dependent_count">Dependent_count</label>
+                        <input type="number" class="form-control" id="Dependent_count" name="Dependent_count" placeholder="Dependent_count" required="required" min="0">
+                      </div>
+        
+                      <div class="mb-3">
+                        <label for="requires_job_training">Education_Level</label>
+                        <select class="form-control" id="Education_Level" name="Education_Level" placeholder="Education_Level" required="required">
+                            <option value="" disabled selected>Education_Level</option>
+                            <option>High School</option>
+                            <option>Graduate</option>
+                            <option>Uneducated</option>
+                            <option>Unknown</option>
+                            <option>College</option>
+                            <option>Post-Graduate</option>
+                            <option>Doctorate</option>
+                        </select>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="requires_job_training">Marital_Status</label>
+                        <select class="form-control" id="Marital_Status" name="Marital_Status" placeholder="Marital_Status" required="required">
+                            <option value="" disabled selected>Marital_Status</option>
+                            <option>Married</option>
+                            <option>Single</option>
+                            <option>Unknown</option>
+                            <option>Divorced</option>
+                        </select>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <label for="requires_job_training">Income_Category</label>
+                        <select class="form-control" id="Income_Category" name="Income_Category" placeholder="Income_Category" required="required">
+                            <option value="" disabled selected>Income_Category</option>
+                            <option>$60K - $80K</option>
+                            <option>Less than $40K</option>
+                            <option>$80K - $120K</option>
+                            <option>$40K - $60K</option>
+                            <option>$120K +</option>
+                            <option>Unknown</option>
+                        </select>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <label for="requires_job_training">Card_Category</label>
+                        <select class="form-control" id="Card_Category" name="Card_Category" placeholder="Card_Category" required="required">
+                            <option value="" disabled selected>Card_Category</option>
+                            <option>Blue</option>
+                            <option>Gold</option>
+                            <option>Silver</option>
+                            <option>Platinum</option>
+                        </select>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Months_on_book">Months_on_book</label>
+                        <input type="number" class="form-control" id="Months_on_book" name="Months_on_book" min="0" max="100" required="required">
+                      </div>
+                      
+                      <div class="mb-3">
+                        <label for="Total_Relationship_Count">Total_Relationship_Count</label>
+                        <input type="number" class="form-control" id="Total_Relationship_Count" name="Total_Relationship_Count" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Months_Inactive_12_mon">Months_Inactive_12_mon</label>
+                        <input type="number" class="form-control" id="Months_Inactive_12_mon" name="Months_Inactive_12_mon" min="0" max="12" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Contacts_Count_12_mon">Contacts_Count_12_mon</label>
+                        <input type="number" class="form-control" id="Contacts_Count_12_mon" name="Contacts_Count_12_mon" min="0" max="12" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Credit_Limit">Credit_Limit</label>
+                        <input type="number" class="form-control" id="Credit_Limit" name="Credit_Limit" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Total_Revolving_Bal">Total_Revolving_Bal</label>
+                        <input type="number" class="form-control" id="Total_Revolving_Bal" name="Total_Revolving_Bal" required="required">
+                      </div>
+                    
+                      <div class="mb-3">
+                        <label for="Avg_Open_To_Buy">Avg_Open_To_Buy</label>
+                        <input type="number" class="form-control" id="Avg_Open_To_Buy" name="Avg_Open_To_Buy" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Total_Amt_Chng_Q4_Q1">Total_Amt_Chng_Q4_Q1</label>
+                        <input type="number" class="form-control" id="Total_Amt_Chng_Q4_Q1" name="Total_Amt_Chng_Q4_Q1" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Total_Trans_Amt">Total_Trans_Amt</label>
+                        <input type="number" class="form-control" id="Total_Trans_Amt" name="Total_Trans_Amt" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Total_Trans_Ct">Total_Trans_Ct</label>
+                        <input type="number" class="form-control" id="Total_Trans_Ct" name="Total_Trans_Ct" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Total_Ct_Chng_Q4_Q1">Total_Ct_Chng_Q4_Q1</label>
+                        <input type="number" class="form-control" id="Total_Ct_Chng_Q4_Q1" name="Total_Ct_Chng_Q4_Q1" required="required">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="Avg_Utilization_Ratio">Avg_Utilization_Ratio</label>
+                        <input type="number" class="form-control" id="Avg_Utilization_Ratio" name="Avg_Utilization_Ratio" required="required">
+                      </div>
+        
+                        <input class="btn btn-primary" type="submit" value="Predict Churn" required />
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="text-center text-black">
+                <h2 class="display-4 fw-bolder">Churn Prediction Status: {{context}} </h2>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(".input").focus(function(){
+            $(this).parent().addClass("focus");
+        }).blur(function(){
+            if($(this).val() === ''){
+                $(this).parent().removeClass("focus");
+            }
+        })
+    </script>
+  </body>
+</html>
