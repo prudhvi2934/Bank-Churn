@@ -1,7 +1,7 @@
-# from churn.cloud_storage.aws_storage import SimpleStorageService
+from churn.cloud_storage.gcp_storage import GCPbucket
 import pickle
 import os
-from churn.entity.estimator import ChurnaModel
+from churn.entity.estimator import ChurnModel
 import sys
 from pandas import DataFrame
 from churn.exception import ChurnException
@@ -19,44 +19,28 @@ class USvisaEstimator:
         :param model_path: Location of your model in bucket
         """
         self.bucket_name = bucket_name
-        # self.s3 = SimpleStorageService()
+        self.gcp = GCPbucket(self.bucket_name)
         self.model_path = model_path
-        self.loaded_model: ChurnaModel = None
-        self.model_location = os.path.join(
-            './S3_bucket', self.bucket_name)
+        self.loaded_model: ChurnModel = None
+        # self.model_location = os.path.join(
+        #     './S3_bucket', self.bucket_name)
 
     def is_model_present(self, model_path):
         try:
-            model_full_path = os.path.join(self.model_location, model_path)
-            return os.path.exists(model_full_path)
-        except Exception as e:
-            raise ChurnException(e, sys)
+            return self.gcp.model_exists(model_name=model_path)
+        except ChurnException as e:
+            print(e)
             return False
 
-    def load_model(self,) -> ChurnaModel:
+    def load_model(self,) -> ChurnModel:
         """
         Load the model from the model_path
         :return:
         """
-        try:
-            # Set the local path where the model is stored (in the 'artifacts' folder)
-            model_path = os.path.join(
-                './S3_bucket', self.bucket_name, self.model_path)
 
-            # Check if the model file exists
-            if os.path.exists(model_path):
-                with open(model_path, "rb") as model_file:
-                    # Load the model using pickle
-                    best_model = pickle.load(model_file)
+        return self.gcp.load_model(self.model_path, bucket_name=self.bucket_name)
 
-                return best_model  # Return the loaded model
-            else:
-                logging.info(f"Model not found at path: {model_path}")
-                return None
-        except Exception as e:
-            raise ChurnException(e, sys)
-
-    def save_model(self, from_file, remove: bool = False) -> None:
+    def save_model(self, from_file) -> None:
         """
         Save the model to the model_path
         :param from_file: Your local system model path
@@ -64,19 +48,8 @@ class USvisaEstimator:
         :return:
         """
         try:
-            destination_path = os.path.join(
-                self.model_location, self.model_path)
-
-            # Copy the model file to the target location
-            with open(from_file, 'rb') as model_file:
-                model_data = model_file.read()
-            with open(destination_path, 'wb') as dest_file:
-                dest_file.write(model_data)
-
-            # Optionally remove the local model file
-            if remove:
-                os.remove(from_file)
-
+            self.gcp.upload_file(from_file,
+                                 destination_blob_name=self.model_path)
         except Exception as e:
             raise ChurnException(e, sys)
 

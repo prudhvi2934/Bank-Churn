@@ -9,7 +9,7 @@ import pandas as pd
 from typing import Optional
 from churn.entity.s3_estimator import USvisaEstimator
 from dataclasses import dataclass
-from churn.entity.estimator import ChurnaModel
+from churn.entity.estimator import ChurnModel
 from churn.entity.estimator import TargetValueMapping
 from churn.exception import ChurnException
 from churn.logger import logging

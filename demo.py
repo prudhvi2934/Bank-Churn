@@ -3,8 +3,8 @@ from churn.pipline.prediction_pipeline import ChurnClassifier
 from pandas import DataFrame
 from churn.exception import ChurnException
 from churn.logger import logging
-# obj = TrainPipeline()
-# obj.run_pipeline()
+obj = TrainPipeline()
+obj.run_pipeline()
 
 # 716299608, Attrited Customer, 58, F, 3, Unknown, Divorced, Less than $40K, Blue, 36, 2, 2, 3, 1508.0, 0, 1508.0, 0.458, 1990, 31, 0.192, 0.0
 A_input_data = {
@@ -52,6 +52,6 @@ E_input_data = {
 }
 
 
-df = DataFrame(A_input_data)
+df = DataFrame(E_input_data)
 obj2 = ChurnClassifier()
 obj2.predict(df)

@@ -22,7 +22,7 @@ class TargetValueMapping:
         return {v: k for k, v in self.mapping.items()}
 
 
-class ChurnaModel:
+class ChurnModel:
     def __init__(self, preprocessing_object: Pipeline, trained_model_object: object):
         """
         :param preprocessing_object: Input Object of preprocesser
@@ -37,7 +37,7 @@ class ChurnaModel:
         which guarantees that the inputs are in the same format as the training data
         At last it performs prediction on transformed features
         """
-        logging.info("Entered predict method of UTruckModel class")
+        logging.info("Entered predict method of Churn Model class")
 
         try:
             logging.info("Using the trained model to get predictions")

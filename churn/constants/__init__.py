@@ -1,5 +1,6 @@
 import os
 
+GCP_CONNECTION_PATH = "/Users/prudhvisajja/Documents/Data Science MSc/COP528 AI and ML/CourseWork/mlops-441520-eb33e188c11d.json"
 
 PIPELINE_NAME: str = "churn"
 ARTIFACT_DIR: str = "artifact"
@@ -8,7 +9,7 @@ TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
 
 FILE_NAME: str = "churn.csv"
-MODEL_FILE_NAME = "model.pkl"
+MODEL_FILE_NAME = "model_1.pkl"
 
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 
@@ -56,7 +57,7 @@ MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join(
 # MODEL EVALUATION related constant
 
 MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.07
-MODEL_BUCKET_NAME = "churn-model2024"
+MODEL_BUCKET_NAME = "churn_model_1"
 MODEL_PUSHER_S3_KEY = "model-registry"
 
 

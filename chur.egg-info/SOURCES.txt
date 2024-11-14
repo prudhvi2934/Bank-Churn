@@ -1,3 +1,5 @@
+LICENSE
+README.md
 setup.py
 chur.egg-info/PKG-INFO
 chur.egg-info/SOURCES.txt

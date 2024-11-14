@@ -37,7 +37,7 @@ class DataTransformation:
         try:
             return pd.read_csv(file_path)
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def get_data_transformer_object(self) -> Pipeline:
         """
@@ -47,10 +47,12 @@ class DataTransformation:
         Output      :   data transformer object is created and returned 
         On Failure  :   Write an exception log and then raise an exception
         """
-        print("Entered get_data_transformer_object method of DataTransformation class")
+        logging.info(
+            "Entered get_data_transformer_object method of DataTransformation class"
+        )
 
         try:
-            print("Got numerical cols from schema config")
+            logging.info("Got numerical cols from schema config")
 
             numeric_transformer = StandardScaler()
             oh_transformer = OneHotEncoder()
@@ -117,7 +119,7 @@ class DataTransformation:
 
                 target_feature_train_df = target_feature_train_df.replace(
                     TargetValueMapping()._asdict()
-                )
+                ).infer_objects(copy=False)
 
                 input_feature_test_df = test_df.drop(
                     columns=[TARGET_COLUMN], axis=1)
@@ -131,7 +133,7 @@ class DataTransformation:
 
                 target_feature_test_df = target_feature_test_df.replace(
                     TargetValueMapping()._asdict()
-                )
+                ).infer_objects(copy=False)
 
                 logging.info(
                     "Got train features and test features of Testing dataset")

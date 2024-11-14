@@ -60,7 +60,7 @@ class ChurnData:
             self.Avg_Utilization_Ratio = Avg_Utilization_Ratio
 
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def get_churn_input_data_frame(self) -> DataFrame:
         """
@@ -72,13 +72,13 @@ class ChurnData:
             return DataFrame(churn_input_dict)
 
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def get_churn_data_as_dict(self):
         """
         This function returns a dictionary from churn class input 
         """
-        print(
+        logging.info(
             "Entered get_churn_data_as_dict method as churn class")
 
         try:
@@ -104,14 +104,15 @@ class ChurnData:
                 "Avg_Utilization_Ratio": [self.Avg_Utilization_Ratio],
             }
 
-            print("Created churn data dict")
+            logging.info("Created churn data dict")
 
-            print("Exited get_churn_data_as_dict method as USvisaData class")
+            logging.info(
+                "Exited get_churn_data_as_dict method as USvisaData class")
 
             return input_data
 
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
 
 class ChurnClassifier:
@@ -123,7 +124,7 @@ class ChurnClassifier:
             # self.schema_config = read_yaml_file(SCHEMA_FILE_PATH)
             self.prediction_pipeline_config = prediction_pipeline_config
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def predict(self, dataframe) -> str:
         """
@@ -131,14 +132,15 @@ class ChurnClassifier:
         Returns: Prediction in string format
         """
         try:
-            print("Entered predict method of USvisaClassifier class")
+            logging.info("Entered predict method of USvisaClassifier class")
             model = USvisaEstimator(
                 bucket_name=self.prediction_pipeline_config.model_bucket_name,
                 model_path=self.prediction_pipeline_config.model_file_path,
             )
             result = model.predict(dataframe)
             print(f"****************{result}***********************")
+
             return result
 
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)

@@ -32,7 +32,7 @@ class DataIngestion:
             dataframe.to_csv(feature_store_file_path, index=False, header=True)
             return dataframe
         except Exception as e:
-            print("Exception in Data Ingestion class export_data_into_df", e)
+            raise ChurnException(e, sys)
 
     def split_data_as_train_test(self, dataframe: DataFrame) -> None:
 

@@ -1,6 +1,6 @@
 import sys
 
-# from churn.cloud_storage.aws_storage import SimpleStorageService
+from churn.cloud_storage.gcp_storage import GCPbucket
 from churn.entity.artifact_entity import ModelPusherArtifact, ModelEvaluationArtifact
 from churn.entity.config_entity import ModelPusherConfig
 from churn.entity.s3_estimator import USvisaEstimator
@@ -15,7 +15,7 @@ class ModelPusher:
         :param model_evaluation_artifact: Output reference of data evaluation artifact stage
         :param model_pusher_config: Configuration for model pusher
         """
-        # self.s3 = SimpleStorageService()
+        self.gcp = GCPbucket(model_pusher_config.bucket_name)
         self.model_evaluation_artifact = model_evaluation_artifact
         self.model_pusher_config = model_pusher_config
         self.usvisa_estimator = USvisaEstimator(bucket_name=model_pusher_config.bucket_name,

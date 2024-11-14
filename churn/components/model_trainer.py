@@ -12,7 +12,7 @@ from neuro_mf import ModelFactory
 from churn.utils.main_utils import load_numpy_array_data, read_yaml_file, load_object, save_object
 from churn.entity.config_entity import ModelTrainerConfig
 from churn.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact, ClassificationMetricArtifact
-from churn.entity.estimator import ChurnaModel
+from churn.entity.estimator import ChurnModel
 from churn.exception import ChurnException
 from churn.logger import logging
 
@@ -63,7 +63,8 @@ class ModelTrainer:
             raise ChurnException(e, sys)
 
     def initiate_model_trainer(self, ) -> ModelTrainerArtifact:
-        print("Entered initiate_model_trainer method of ModelTrainer class")
+        logging.info(
+            "Entered initiate_model_trainer method of ModelTrainer class")
 
         """
         Method Name :   initiate_model_trainer
@@ -87,11 +88,9 @@ class ModelTrainer:
             if best_model_detail.best_score < self.model_trainer_config.expected_accuracy:
                 logging.info(
                     "No best model found with score more than base score")
-                logging.info(
-                    "No best model found with score more than base score")
 
-            usvisa_model = ChurnaModel(preprocessing_object=preprocessing_obj,
-                                       trained_model_object=best_model_detail.best_model)
+            usvisa_model = ChurnModel(preprocessing_object=preprocessing_obj,
+                                      trained_model_object=best_model_detail.best_model)
             logging.info(
                 "Created churn model object with preprocessor and model")
             logging.info("Created best model file path.")

@@ -27,7 +27,7 @@ class TrainPipeline:
             data_ingestion_artifact = data_ingestor.initiate_data_ingestion()
             return data_ingestion_artifact
         except Exception as e:
-            print("Exception in TrainPipeline class start_data_ingestion", e)
+            raise ChurnException(e, sys)
 
     def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact) -> DataValidationArtifact:
 
@@ -37,12 +37,12 @@ class TrainPipeline:
 
             data_validation_artifact = data_validation.initiate_data_validation()
 
-            print("Performed the data validation operation")
+            logging.info("Performed the data validation operation")
 
             return data_validation_artifact
 
         except Exception as e:
-            print("Exception in TrainPipeline class start_data_validation", e)
+            raise ChurnException(e, sys)
 
     def start_data_transformation(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
 
@@ -53,7 +53,7 @@ class TrainPipeline:
             data_transformation_artifact = data_transformation.initiate_data_transformation()
             return data_transformation_artifact
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
         """
@@ -67,7 +67,7 @@ class TrainPipeline:
             return model_trainer_artifact
 
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def start_model_evaluation(self, data_ingestion_artifact: DataIngestionArtifact,
                                model_trainer_artifact: ModelTrainerArtifact) -> ModelEvaluationArtifact:
@@ -81,7 +81,7 @@ class TrainPipeline:
             model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
             return model_evaluation_artifact
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def start_model_pusher(self, model_evaluation_artifact: ModelEvaluationArtifact) -> ModelPusherArtifact:
         """
@@ -95,7 +95,7 @@ class TrainPipeline:
             return model_pusher_artifact
 
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def run_pipeline(self) -> None:
         try:
@@ -109,9 +109,9 @@ class TrainPipeline:
             model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
                                                                     model_trainer_artifact=model_trainer_artifact)
             if not model_evaluation_artifact.is_model_accepted:
-                print(f"Model not accepted.")
+                logging.info(f"Model not accepted.")
                 return None
             model_pusher_artifact = self.start_model_pusher(
                 model_evaluation_artifact=model_evaluation_artifact)
         except Exception as e:
-            print(e)
+            raise ChurnException(e, sys)

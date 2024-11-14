@@ -82,7 +82,7 @@ class DataValidation:
         try:
             return pd.read_csv(file_path)
         except Exception as e:
-            print(e, sys)
+            raise ChurnException(e, sys)
 
     def detect_dataset_drift(self, reference_df: DataFrame, current_df: DataFrame, ) -> bool:
         """
@@ -132,19 +132,18 @@ class DataValidation:
                 f"All required columns present in training dataframe: {status}")
             if not status:
                 validation_error_msg += f"Columns are missing in training dataframe."
-            status = self.validate_number_of_columns(dataframe=test_df)
 
+            status = self.validate_number_of_columns(dataframe=test_df)
             logging.info(
                 f"All required columns present in testing dataframe: {status}")
             if not status:
                 validation_error_msg += f"Columns are missing in test dataframe."
 
             status = self.is_column_exist(df=train_df)
-
             if not status:
                 validation_error_msg += f"Columns are missing in training dataframe."
-            status = self.is_column_exist(df=test_df)
 
+            status = self.is_column_exist(df=test_df)
             if not status:
                 validation_error_msg += f"columns are missing in test dataframe."
 
