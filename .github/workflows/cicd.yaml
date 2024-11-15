@@ -17,8 +17,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
     
-      - name: Debug Environment Variables
-        run: env
+      - name: Debug Specific Environment Variables
+        run: |
+          echo "PATH=$PATH"
+          echo "HOME=$HOME"
+          echo "GCP_SERVICE_ACCOUNT_KEY=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}"
       
       # - name: Set up Python
       #   uses: actions/setup-python@v4
