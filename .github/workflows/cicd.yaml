@@ -17,6 +17,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
     
+      - name: Debug Environment Variables
+          run: env
       
       # - name: Set up Python
       #   uses: actions/setup-python@v4
@@ -29,8 +31,6 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'  # Add your service account key as a GitHub secret
 
-      - name: Debug Environment Variables
-        run: env
 
       # Configure Docker to use the Google Container Registry (GCR) or Artifact Registry
       - name: Configure Docker to use gcloud command-line tool
