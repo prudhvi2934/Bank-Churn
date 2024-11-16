@@ -14,6 +14,7 @@ jobs:
     name: Continuous Integration
     runs-on: ubuntu-latest
     environment: MLops_GCP
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -29,14 +30,13 @@ jobs:
 
       # Configure Docker to use the Google Container Registry (GCR) or Artifact Registry
       - name: Set up Cloud SDK
-       uses: google-github-actions/setup-gcloud@v1
-       with:
-         project_id: ${{ secrets.GCP_PROJECT_ID }}
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
 
       - name: Docker auth
-        run: |
-          gcloud auth configure-docker ${{ env.GCP_LOCATION }}-docker.pkg.dev
+        run: gcloud auth configure-docker ${{ env.GCP_LOCATION }}-docker.pkg.dev
 
       # Set up environment variables for the image details
       - name: Set image details
