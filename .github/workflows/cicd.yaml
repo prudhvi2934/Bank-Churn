@@ -24,14 +24,14 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'  # Add your service account key as a GitHub secret
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}  # Add your service account key as a GitHub secret
 
 
       # Configure Docker to use the Google Container Registry (GCR) or Artifact Registry
       - name: Set up Cloud SDK
        uses: google-github-actions/setup-gcloud@v1
        with:
-         project_id: '${{ secrets.GCP_PROJECT_ID }}'
+         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
 
       - name: Docker auth
