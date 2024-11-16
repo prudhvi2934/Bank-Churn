@@ -35,7 +35,7 @@ jobs:
       - name: Set image details
         id: image_details
         run: |
-          echo IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/churn-image
+          echo "IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/churn-image" >> $GITHUB_ENV
           
 
       # Build, tag, and push image to Google Container Registry
