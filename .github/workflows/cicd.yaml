@@ -43,7 +43,7 @@ jobs:
       - name: Set image details
         id: image_details
         run: |
-          echo "IMAGE_NAME=${{ secrets.GCP_PROJECT_ID }}/churn-image" >> $GITHUB_ENV
+          echo "IMAGE_NAME=churn-image" >> $GITHUB_ENV
           
 
       # Build, tag, and push image to Google Container Registry
@@ -52,7 +52,7 @@ jobs:
         env:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/${{ env.IMAGE_NAME }}:latest .
-          docker push us-central1-docker.pkg.dev-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/${{ env.IMAGE_NAME }}:latest
+          docker build -t us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/${{ env.IMAGE_NAME }}:latest .
+          docker push us-central1-docker.pkg.dev-docker.pkg.dev/mlops-441520/churn-image-repo/${{ env.IMAGE_NAME }}:latest
       
 
