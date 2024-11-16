@@ -45,7 +45,7 @@ jobs:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_TAG: latest
         run: |
-          docker build -t $IMAGE_NAME:latest .
+          docker build -t $IMAGE_NAME:${{ env.IMAGE_TAG }} .
           docker push $IMAGE_NAME:${{ env.IMAGE_TAG }}
       
 
