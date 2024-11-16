@@ -35,7 +35,7 @@ jobs:
 
 
       - name: Docker auth
-        run: |-
+        run: |
           gcloud auth configure-docker ${{ env.GCP_LOCATION }}-docker.pkg.dev
 
       # Set up environment variables for the image details
