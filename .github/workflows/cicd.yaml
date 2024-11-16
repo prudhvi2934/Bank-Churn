@@ -21,21 +21,28 @@ jobs:
         
       # Authenticate with GCP using the service account key
       - name: Authenticate to Google Cloud
+        id: auth
         uses: google-github-actions/auth@v1
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'  # Add your service account key as a GitHub secret
 
 
       # Configure Docker to use the Google Container Registry (GCR) or Artifact Registry
-      - name: Configure Docker to use gcloud command-line tool
-        run: |
-          gcloud auth configure-docker --quiet
+      - name: Set up Cloud SDK
+       uses: google-github-actions/setup-gcloud@v1
+       with:
+         project_id: '${{ secrets.GCP_PROJECT_ID }}'
+
+
+        - name: 'Docker auth'
+          run: |-
+            gcloud auth configure-docker ${{ env.GCP_LOCATION }}-docker.pkg.dev
 
       # Set up environment variables for the image details
       - name: Set image details
         id: image_details
         run: |
-          echo "IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/churn-image" >> $GITHUB_ENV
+          echo "IMAGE_NAME=${{ secrets.GCP_PROJECT_ID }}/churn-image" >> $GITHUB_ENV
           
 
       # Build, tag, and push image to Google Container Registry
@@ -43,9 +50,8 @@ jobs:
         id: build-image
         env:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          IMAGE_TAG: latest
         run: |
-          docker build -t us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/$IMAGE_NAME:${{ env.IMAGE_TAG }} .
-          docker push us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/$IMAGE_NAME:${{ env.IMAGE_TAG }}
+          docker build -t ${{ env.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/$IMAGE_NAME:latest .
+          docker push ${{ env.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/$IMAGE_NAME:latest
       
 
