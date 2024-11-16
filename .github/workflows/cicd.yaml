@@ -35,8 +35,7 @@ jobs:
       - name: Set image details
         id: image_details
         run: |
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/your-image-name
-          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/churn-image
           echo "IMAGE_TAG=latest" >> $GITHUB_ENV
 
       # Build, tag, and push image to Google Container Registry
