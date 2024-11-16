@@ -45,7 +45,8 @@ jobs:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_TAG: latest
         run: |
-          docker build -t $IMAGE_NAME:${{ env.IMAGE_TAG }} .
-          docker push $IMAGE_NAME:${{ env.IMAGE_TAG }}
+        us-central1-docker.pkg.dev/mlops-441520/churn-image-repo
+          docker build -t us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/$IMAGE_NAME:${{ env.IMAGE_TAG }} .
+          docker push us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/$IMAGE_NAME:${{ env.IMAGE_TAG }}
       
 
