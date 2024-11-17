@@ -42,10 +42,15 @@ jobs:
       - name: Set image details
         id: set_env
         run: |
-          echo "IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image" >> $GITHUB_ENV
-          echo "IMAGE_TAG=latest" >> $GITHUB_ENV
-          echo "::set-output name=image_name::us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image"
-          echo "::set-output name=image_tag::latest"
+          IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image
+          IMAGE_TAG=latest
+          
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+
+          # Set outputs
+          echo "::set-output name=image_name::$IMAGE_NAME"
+          echo "::set-output name=image_tag::$IMAGE_TAG"
           
       # Build, tag, and push image to Google Container Registry
       # - name: Build Docker image
