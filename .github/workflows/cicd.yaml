@@ -83,7 +83,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy churn-service \
-            --image=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+            --image=${{ needs.integration.outputs.image_name }}:${{ needs.integration.outputs.image_tag }} \
             --region=us-central1 \
             --platform=managed \
             --allow-unauthenticated \
