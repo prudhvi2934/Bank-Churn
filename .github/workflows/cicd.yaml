@@ -45,7 +45,7 @@ jobs:
   deployment:
     name: Continuous Deployment
     needs: integration
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: MLops_GCP
     steps:
       # - name: Checkout
