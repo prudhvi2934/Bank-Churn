@@ -19,6 +19,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
   
+      - name: Debug environment variables
+        run: env
         
       # Authenticate with GCP using the service account key
       - name: Authenticate to Google Cloud
@@ -29,10 +31,10 @@ jobs:
 
 
       # Configure Docker to use the Google Container Registry (GCR) or Artifact Registry
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      # - name: Set up Cloud SDK
+      #   uses: google-github-actions/setup-gcloud@v1
+      #   with:
+      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
 
 
       - name: Docker auth
@@ -45,11 +47,6 @@ jobs:
         run: |
           echo "IMAGE_NAME=churn-image" >> $GITHUB_ENV
           
-      - name: print Environment var
-        run: |
-          echo "IMAGE_NAME=${{ env.IMAGE_NAME }}"
-          echo "GCP_LOCATION=${{ env.GCP_LOCATION }}"
-
       # Build, tag, and push image to Google Container Registry
       - name: Build Docker image
         run: |
