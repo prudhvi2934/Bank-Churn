@@ -14,6 +14,10 @@ jobs:
     name: Continuous Integration
     runs-on: ubuntu-latest
     environment: MLops_GCP
+
+    outputs:
+      image_name: ${{ steps.set_env.outputs.image_name }}
+      image_tag: ${{ steps.set_env.outputs.image_tag }}
     
     steps:
       - name: Checkout Code
@@ -30,11 +34,18 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       # Set up environment variables for the image details
+      # - name: Set image details
+      #   id: image_details
+      #   run: |
+      #     echo "IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image" >> $GITHUB_ENV
+      #     echo "IMAGE_TAG=latest" >> $GITHUB_ENV
       - name: Set image details
-        id: image_details
+        id: set_env
         run: |
           echo "IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image" >> $GITHUB_ENV
           echo "IMAGE_TAG=latest" >> $GITHUB_ENV
+          echo "::set-output name=image_name::us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image"
+          echo "::set-output name=image_tag::latest"
           
       # Build, tag, and push image to Google Container Registry
       # - name: Build Docker image
@@ -46,6 +57,7 @@ jobs:
     name: Continuous Deployment
     needs: integration
     runs-on: ubuntu-latest
+    environment: MLops_GCP
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v3
@@ -60,8 +72,8 @@ jobs:
 
       - name: Debug Environment Variables
         run: |
-          echo "IMAGE_NAME=${{ env.IMAGE_NAME }}"
-          echo "IMAGE_TAG=${{ env.IMAGE_TAG }}"
+          echo "IMAGE_NAME=${{ needs.integration.outputs.image_name }}"
+          echo "IMAGE_TAG=${{ needs.integration.outputs.image_tag }}"
       
       - name: Deploy to Cloud Run
         run: |
