@@ -42,7 +42,7 @@ jobs:
       - name: Set image details
         id: set_env
         run: |
-          IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image
+          IMAGE_NAME=us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/churn-image
           IMAGE_TAG=latest
           
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
