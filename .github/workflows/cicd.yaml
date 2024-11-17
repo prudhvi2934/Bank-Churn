@@ -45,16 +45,14 @@ jobs:
         run: |
           echo "IMAGE_NAME=churn-image" >> $GITHUB_ENV
           
+      - name: print Environment var
+        run: |
+          echo "IMAGE_NAME=${{ env.IMAGE_NAME }}"
+          echo "GCP_LOCATION=${{ env.GCP_LOCATION }}"
 
       # Build, tag, and push image to Google Container Registry
       - name: Build Docker image
         run: |
           docker build -t us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/${{ env.IMAGE_NAME }}:latest .
-      
-      - name: List Docker images
-        run: docker images
-
-      - name: Push Docker image
-        run: |
           docker push us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/${{ env.IMAGE_NAME }}:latest
 
