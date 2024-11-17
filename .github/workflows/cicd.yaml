@@ -47,7 +47,7 @@ jobs:
           echo "::set-output name=image_name::$IMAGE_NAME"
           echo "::set-output name=image_tag::$IMAGE_TAG"
           
-      Build, tag, and push image to Google Container Registry
+      # Build, tag, and push image to Google Container Registry
       - name: Build Docker image
         run: |
           docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
