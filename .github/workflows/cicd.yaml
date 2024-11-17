@@ -18,38 +18,51 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-  
-      - name: Debug environment variables
-        run: env
+
         
       # Authenticate with GCP using the service account key
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}  # Add your service account key as a GitHub secret
-
-
-      # Configure Docker to use the Google Container Registry (GCR) or Artifact Registry
-      # - name: Set up Cloud SDK
-      #   uses: google-github-actions/setup-gcloud@v1
-      #   with:
-      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
-
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Docker auth
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
-        # ${{ env.GCP_LOCATION }}-docker.pkg.dev
 
       # Set up environment variables for the image details
       - name: Set image details
         id: image_details
         run: |
-          echo "IMAGE_NAME=churn-image" >> $GITHUB_ENV
+          echo "IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image" >> $GITHUB_ENV
+          echo "IMAGE_TAG=latest" >> $GITHUB_ENV
           
       # Build, tag, and push image to Google Container Registry
       - name: Build Docker image
         run: |
-          docker build -t us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/${{ env.IMAGE_NAME }}:latest .
-          docker push us-central1-docker.pkg.dev/mlops-441520/churn-image-repo/${{ env.IMAGE_NAME }}:latest
+          docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+  deployment:
+    name: Continuous Deployment
+    needs: deployment
+    runs-on: self-hosted
+    environment: MLops_GCP
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
+      
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy churn-service \
+            --image=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+            --region=us-central1 \
+            --platform=managed \
+            --allow-unauthenticated \
+            --project=${{ secrets.GCP_PROJECT_ID }}
 
