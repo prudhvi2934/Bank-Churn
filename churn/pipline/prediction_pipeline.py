@@ -4,7 +4,7 @@ import sys
 import numpy as np
 import pandas as pd
 from churn.entity.config_entity import ChurnPredictorConfig
-from churn.entity.s3_estimator import USvisaEstimator
+from churn.entity.s3_estimator import ChurnEstimator
 
 from churn.utils.main_utils import read_yaml_file
 from pandas import DataFrame
@@ -133,7 +133,7 @@ class ChurnClassifier:
         """
         try:
             logging.info("Entered predict method of USvisaClassifier class")
-            model = USvisaEstimator(
+            model = ChurnEstimator(
                 bucket_name=self.prediction_pipeline_config.model_bucket_name,
                 model_path=self.prediction_pipeline_config.model_file_path,
             )

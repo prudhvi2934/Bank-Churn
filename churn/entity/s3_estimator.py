@@ -8,7 +8,7 @@ from churn.exception import ChurnException
 from churn.logger import logging
 
 
-class USvisaEstimator:
+class ChurnEstimator:
     """
     This class is used to save and retrieve us_visas model in s3 bucket and to do prediction
     """

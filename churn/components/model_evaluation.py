@@ -7,7 +7,7 @@ from churn.constants import TARGET_COLUMN
 import sys
 import pandas as pd
 from typing import Optional
-from churn.entity.s3_estimator import USvisaEstimator
+from churn.entity.s3_estimator import ChurnEstimator
 from dataclasses import dataclass
 from churn.entity.estimator import ChurnModel
 from churn.entity.estimator import TargetValueMapping
@@ -34,7 +34,7 @@ class ModelEvaluation:
         except Exception as e:
             raise ChurnException(e, sys)
 
-    def get_best_model(self) -> Optional[USvisaEstimator]:
+    def get_best_model(self) -> Optional[ChurnEstimator]:
         """
         Method Name :   get_best_model
         Description :   This function is used to get model in production
@@ -45,8 +45,8 @@ class ModelEvaluation:
         try:
             bucket_name = self.model_eval_config.bucket_name
             model_path = self.model_eval_config.s3_model_key_path
-            usvisa_estimator = USvisaEstimator(bucket_name=bucket_name,
-                                               model_path=model_path)
+            usvisa_estimator = ChurnEstimator(bucket_name=bucket_name,
+                                              model_path=model_path)
 
             if usvisa_estimator.is_model_present(model_path=model_path):
                 return usvisa_estimator

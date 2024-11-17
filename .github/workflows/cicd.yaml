@@ -33,12 +33,7 @@ jobs:
       - name: Docker auth
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      # Set up environment variables for the image details
-      # - name: Set image details
-      #   id: image_details
-      #   run: |
-      #     echo "IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/churn-image-repo/churn-image" >> $GITHUB_ENV
-      #     echo "IMAGE_TAG=latest" >> $GITHUB_ENV
+      
       - name: Set image details
         id: set_env
         run: |
@@ -52,11 +47,11 @@ jobs:
           echo "::set-output name=image_name::$IMAGE_NAME"
           echo "::set-output name=image_tag::$IMAGE_TAG"
           
-      # Build, tag, and push image to Google Container Registry
-      # - name: Build Docker image
-      #   run: |
-      #     docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
-      #     docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      Build, tag, and push image to Google Container Registry
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          docker push ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
   deployment:
     name: Continuous Deployment
