@@ -46,7 +46,6 @@ jobs:
     name: Continuous Deployment
     needs: integration
     runs-on: ubuntu-latest
-    environment: MLops_GCP
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v3
