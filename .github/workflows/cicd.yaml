@@ -45,7 +45,7 @@ jobs:
 
   deployment:
     name: Continuous Deployment
-    needs: deployment
+    needs: integration
     runs-on: self-hosted
     environment: MLops_GCP
     steps:
